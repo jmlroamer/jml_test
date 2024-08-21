@@ -1,0 +1,47 @@
+// *{
+//     padding: 0;
+//     margin: 0;
+// }
+#app {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+.box-container {
+  padding: 15px 20px;
+  overflow: auto;
+  .box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px;
+    .box-header-left {
+      display: flex;
+    }
+  }
+}
+.pagination-box {
+  margin: 15px 50px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.el-menu--popup {
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  // scrollbar-width: none;
+  // scrollbar-color: var(--el-text-color-secondary);
+  // scrollbar-opacity: 0.3;
+  // scrollbar-bg-color: var(--el-text-color-secondary);
+  // scrollbar-hover-opacity: 0.5;
+  // scrollbar-hover-bg-color: var(--el-text-color-secondary);
+}
+::-webkit-scrollbar {
+  width: 0px; /* 修改宽度 */
+}

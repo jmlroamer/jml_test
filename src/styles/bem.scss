@@ -1,0 +1,38 @@
+$namespacejml:'jml' !default;
+$block-sel: "-" !default;
+$element-sel: "__" !default;
+$modifier-sel: "--" !default;
+@mixin bfc {
+    height: 100%;
+    overflow: hidden;
+}
+
+//混入
+@mixin jb($block) {
+   $B: $namespacejml + $block-sel + $block; //变量
+   .#{$B}{ //插值语法#{}
+     @content; //内容替换
+   }
+}
+ 
+@mixin flex {
+    display: flex;
+}
+
+@mixin je($element) {
+    $selector:&;
+    @at-root {
+        #{$selector + $element-sel + $element} {
+            @content;
+        }
+    }
+}
+ 
+@mixin jm($modifier) {
+    $selector:&;
+    @at-root {
+        #{$selector + $modifier-sel + $modifier} {
+            @content;
+        }
+    }
+}
