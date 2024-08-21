@@ -1,8 +1,13 @@
-<script lang="tsx">
+<template>
+	<slot></slot>
+</template>
+
+<script lang="ts">
 import { defineComponent, PropType, watch } from "vue";
 import L from "leaflet";
 import { layerProps, layerEmits, layerSetup } from "../functions/layer";
 import type { WMSOptions, WMSParams } from "leaflet";
+import { mergePen } from "../utils";
 
 export default defineComponent({
 	props: {
@@ -24,14 +29,14 @@ export default defineComponent({
 	},
 	emits: { ...layerEmits },
 	setup(props, context) {
-		const option = {
+		const option = mergePen({
 			format: "image/png",
 			transparent: true,
 			crs: props.crs,
 			zIndex: props.zIndex,
 			layers: props.layers,
 			...props.options
-		};
+		});
 		const styles = props.styles || props.options?.styles;
 
 		styles && (option.styles = styles);
@@ -47,8 +52,6 @@ export default defineComponent({
 			_style && (params.styles = _style);
 			wmsTileLayer.setParams(params as WMSParams);
 		});
-
-		return () => null;
 	}
 });
 </script>

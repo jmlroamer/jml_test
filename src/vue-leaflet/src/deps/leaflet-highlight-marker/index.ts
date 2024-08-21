@@ -65,7 +65,7 @@ class MarkerManage {
 	/**
 	 * 创建高亮marker
 	 * @param id marker的id
-	 * @param only 是否值打开一个
+	 * @param only 是否只打开一个
 	 * @param latlng 坐标
 	 * @param options
 	 * @returns
@@ -147,6 +147,7 @@ class HighlightMarker<T = any> extends L.Marker<T> {
 	 * @param map
 	 */
 	private create(map: L.Map) {
+		if (!map) return;
 		const { width, height, icon, only } = this.options as Required<L.HighlightMarkerOptions>;
 		const { iconSize, iconAnchor } = icon.options as L.IconOptions;
 		MarkerManage.createMarker(this._markerId, only, this.getLatLng(), {
@@ -173,8 +174,11 @@ class HighlightMarker<T = any> extends L.Marker<T> {
 	 */
 	public highlight(zoom?: number | undefined, options?: L.ZoomPanOptions | undefined) {
 		if (this.isHighlight()) return this;
-		this._map ? this.create(this._map) : Promise.resolve().then(() => this.create(this._map));
-		zoom != null && this._map.flyTo(this.getLatLng(), zoom, options);
+		const fn = () => {
+			this.create(this._map);
+			zoom != null && this._map.flyTo(this.getLatLng(), zoom, options);
+		};
+		this._map ? fn() : Promise.resolve().then(fn);
 		return this;
 	}
 

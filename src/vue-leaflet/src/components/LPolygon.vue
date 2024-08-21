@@ -7,6 +7,7 @@ import { defineComponent, inject, PropType, toRef, watch } from "vue";
 import L from "leaflet";
 import { layerProps, layerSetup, layerEmits } from "../functions/layer";
 import { mapContextKey } from "../token";
+import { mergePen } from "../utils";
 
 export default defineComponent({
 	props: {
@@ -26,12 +27,18 @@ export default defineComponent({
 
 		const latlngs = toRef(props, "latlngs");
 
-		const layer = L.polygon(latlngs.value, props.options);
+		const layer = L.polygon(latlngs.value, mergePen(props.options));
 
 		watch(latlngs, (val) => {
-			if (!val) return;
-			val.forEach((item) => layer.addLatLng(item as L.LatLngExpression | L.LatLngExpression[]));
+			layer.setLatLngs(val);
 		});
+
+		watch(
+			() => props.options,
+			(val) => {
+				layer.setStyle(val!);
+			}
+		);
 
 		layerSetup(props, context, { layer });
 	}

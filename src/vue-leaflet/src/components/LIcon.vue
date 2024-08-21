@@ -27,7 +27,7 @@ export default defineComponent({
 		shadowUrl: String,
 		shadowSize: Object as PropType<L.Point>,
 		shadowAnchor: Object as PropType<L.Point>,
-		options: Object as PropType<L.IconOptions>,
+		options: Object as PropType<Partial<L.IconOptions>>,
 		className: {
 			type: String,
 			default: ""
@@ -66,11 +66,12 @@ export default defineComponent({
 			const firstEl = wrapperEl.firstElementChild as HTMLElement;
 			const html = firstEl.nodeType !== Node.ELEMENT_NODE ? wrapperEl : firstEl;
 			icon = L.divIcon({ ...options, html });
+			marker && marker.setIcon(icon);
 		} else {
 			icon = L.icon(options);
+			marker && marker.setIcon(icon);
 		}
 
-		marker && marker.setIcon(icon);
 		propsBinder({}, marker, shallowReactive({ iconUrl, iconSize }));
 
 		return () => null;

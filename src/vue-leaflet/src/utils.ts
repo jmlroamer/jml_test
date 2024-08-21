@@ -1,4 +1,5 @@
-import { type VNode, watch, render } from "vue";
+import { type VNode, watch, render, inject } from "vue";
+import { mapPaneKey } from "./token";
 
 /**
  * 首字母大写
@@ -70,35 +71,13 @@ export const renderToElement = (vNode: VNode, type = "div") => {
 	return (el.firstChild?.nodeType === 3 ? el : el.firstChild) as HTMLElement;
 };
 
-type ScheduleFn = {
-	(...arg: any[]): void;
-	stop: () => void;
-};
-
 /**
- * 创建一个调度执行函数
- * @param fn
+ * 将pen合并到option中
+ * @param {*} source
  * @returns
  */
-export const createSchedule = (fn: (...arg: any[]) => any) => {
-	let p: Promise<any> | null = Promise.resolve();
-	// 队列是否在刷新
-	let isFinish = false;
-	const execute: ScheduleFn = (...arg: any[]) => {
-		if (isFinish) return;
-		// 标志队列正在刷新
-		isFinish = true;
-		p &&
-			p
-				.then(() => fn(arg))
-				.finally(() => {
-					// 重置状态
-					isFinish = false;
-				});
-	};
-	execute.stop = () => {
-		p = null;
-	};
-
-	return execute;
+export const mergePen = (source: any) => {
+	const pane = inject(mapPaneKey, null);
+	if (!pane) return source;
+	return { pane, ...source };
 };
