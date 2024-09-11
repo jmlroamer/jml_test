@@ -13,6 +13,8 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import plugin from "@/plugin";
 import "@/vue-leaflet/src/style/index.css";
 
+import "@/utils/L.TileLayer.NoGap";
+
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 

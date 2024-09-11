@@ -8,36 +8,53 @@
   </div>
 </template>
 <script lang="ts" setup>
-// let obj = {
-//   a: 1,
-//   b: 2,
-// };
-// Object.defineProperty(Object.prototype, "c", {
-//   value: () => {
-//     console.log("c");
-//   },
-//   writable: true,
-//   enumerable: true,
-//   configurable: true,
-// });
+let obj = {
+  a: 1,
+  b: 2,
+};
+Object.defineProperty(Object.prototype, "c", {
+  value: () => {
+    console.log("c");
+  },
+  writable: true,
+  enumerable: true,
+  configurable: true,
+});
 
 // for (let key in obj) {
 //   console.log(key);
 // }
+// console.log(obj.c);
+let obj2: any = { d: 1 };
+for (let key in obj2) {
+  console.log(key);
+}
 
-// const s = Promise.resolve("s");
+// const s = Promise.resolve("1");
 // s.then((res) => {
 //   console.log(res);
-//   return Promise.reject("s");
-// }).catch((res) => {
-//   return Promise.resolve("s");
-// }).finally(() => {
-//   console.log("finally");
-// });
+//   setTimeout(() => {
+//     console.log("2");
+//   }, 0);
+//   return Promise.resolve("3");
+// })
+//   .then((res) => {
+//     setTimeout(() => {
+//       console.log(res);
+//       return Promise.resolve("4");
+//     }, 0);
+//     console.log("5");
+//   })
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .finally(() => {
+//     console.log("6");
+//   });
 
 // const a = ++[[]][+[]] + [+[]] + [[]][+[]];
 
-// // console.log(a);
+// console.log(a);
 // // console.log(1 + [1]);
 
 // // console.log(typeof a);

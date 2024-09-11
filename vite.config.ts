@@ -44,5 +44,17 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       // },
     },
     plugins: createPlugins(),
+    esbuild: {
+      drop: ["console", "debugger"],
+    },
+    // build: {
+    //   minify: "terser",
+    //   terserOptions: {
+    //     compress: {
+    //       drop_console: true,
+    //       drop_debugger: true,
+    //     },
+    //   },
+    // },
   };
 });

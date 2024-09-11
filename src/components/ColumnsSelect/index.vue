@@ -7,13 +7,13 @@
       type="primary"
       >{{ name }}</sw-button
     >
-    <img
+    <!-- <img
       v-else
       style="width: 38px; cursor: pointer"
       @click="changeShowTree"
       src="@/assets/icon/columns_select.png"
       alt=""
-    />
+    /> -->
     <div
       v-if="isshow"
       ref="treeSelectRef"

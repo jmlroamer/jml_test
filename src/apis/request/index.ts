@@ -12,8 +12,6 @@ const request = axios.create({
 });
 request.interceptors.request.use(
   (config) => {
-    console.log(config);
-
     NProgress.start();
     //   config = config || {};
     if (config.headers["Content-Type"] == undefined) {
